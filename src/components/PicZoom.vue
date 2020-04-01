@@ -88,6 +88,24 @@
             })
         },
         methods: {
+            getOffsetLeft(obj){
+              var tmp = obj.offsetLeft;
+              var node= obj.offsetParent;
+              while(node!= null){
+              tmp += node.offsetLeft;
+                node= node.offsetParent;
+               }
+                return tmp;
+            },
+            getOffsetTop(obj){
+               var tmp = obj.offsetTop;
+               var node= obj.offsetParent;
+              while(node!= null){
+                tmp += node.offsetTop;
+               node= node.offsetParent;
+               }
+                return tmp;
+            },
             initTime(){
                 this.init=false
                 let box=this.$refs[this.id]
@@ -122,8 +140,8 @@
                 this.canvas=document.createElement('canvas')
                 this.canvas.className='mouse-cover-canvas'
                 this.canvas.style.position='absolute'
-                this.canvas.style.left=this.imgbox.offsetLeft+this.imgbox.offsetWidth+10+'px'
-                this.canvas.style.top=this.imgbox.offsetTop+'px'
+                this.canvas.style.left=this.getOffsetLeft(this.imgbox)+this.imgbox.offsetWidth+10+'px'
+                this.canvas.style.top=this.getOffsetTop(this.imgbox)+'px'
                 this.canvas.style.border='1px solid #eee'
                 this.canvas.style.zIndex='99999'
                 this.canvas.height=this.imgbox.offsetHeight
